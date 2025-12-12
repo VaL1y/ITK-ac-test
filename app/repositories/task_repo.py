@@ -45,12 +45,14 @@ class TaskRepository:
         return True
 
     async def list(
-        self,
-        *,
-        status: Optional[str],
-        priority: Optional[int],
-        include_deleted: bool,
-    ) -> List[Task]:
+            self,
+            *,
+            status: Optional[str],
+            priority: Optional[int],
+            include_deleted: bool,
+            limit: int,
+            offset: int,
+    ) -> list[Task]:
         stmt = select(Task)
 
         if not include_deleted:
@@ -62,5 +64,7 @@ class TaskRepository:
         if priority:
             stmt = stmt.where(Task.priority == priority)
 
-        res = await self.session.execute(stmt)
-        return list(res.scalars().all())
+        stmt = stmt.limit(limit).offset(offset)
+
+        result = await self.session.execute(stmt)
+        return list(result.scalars().all())
