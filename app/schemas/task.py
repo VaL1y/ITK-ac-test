@@ -1,15 +1,9 @@
 from datetime import datetime
-from enum import Enum
 from typing import Optional
 from uuid import UUID
+from app.schemas.enums import TaskStatus
 
 from pydantic import BaseModel, Field
-
-
-class TaskStatus(str, Enum):
-    new = "new"
-    in_progress = "in_progress"
-    done = "done"
 
 
 class TaskBase(BaseModel):

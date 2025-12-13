@@ -1,6 +1,7 @@
 import enum
 from datetime import datetime
 from uuid import uuid4
+from app.schemas.enums import TaskStatus
 
 from sqlalchemy import (
     Boolean,
@@ -13,12 +14,6 @@ from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import Mapped, mapped_column
 
 from app.db.base import Base
-
-
-class TaskStatus(str, enum.Enum):
-    new = "new"
-    in_progress = "in_progress"
-    done = "done"
 
 
 class Task(Base):
